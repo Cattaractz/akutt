@@ -1,0 +1,481 @@
+body {
+    font-family: 'Sono', sans-serif;
+    background-color: #1a1e21;
+    color: #f5f6fa;
+    margin: 0;
+    padding: 0; /* Fjernet padding for å la menyen gå helt ut til kanten */
+}
+
+/* --- NY TOPP-MENY --- */
+
+.top-bar {
+    display: flex;
+    justify-content: space-between; /* Skyver innholdet til hver sin kant */
+    align-items: center;
+    background-color: #131e29; /* Mørkere bakgrunn for menyen */
+    padding: 15px 40px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+/** Venstre side: Ikon og tekst */
+.brand-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.pediatric-icon {
+    font-size: 1.8rem; /* Større ikon */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}.menu-item {
+    background: transparent;
+    color: #ecf0f1;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+}
+
+.menu-item:hover {
+    background: #E1B12C;
+    color: #2D3436;
+    transform: translateY(-2px);
+}
+
+.menu-item:active {
+    background: #E1B12C;
+    color: #2D3436;
+    transform: translateY(0);
+}
+
+/** --- PEVS --- */
+.pevs-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    background-color: #131e29;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    max-width: 1000px;
+    margin: 20px auto;
+}
+.pevs-text{
+    flex: 1;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.pevs-text strong {
+    color: #E1B12C;
+    font-size: 1.3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.switch {
+  /* Change these three and everything else updates! */
+  --width: 50px;
+  --height: 30px;
+  --gap: 4px;
+  --knob-size: calc(var(--height) - (var(--gap) * 2));
+  
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+  margin-bottom: 8px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: var(--height);
+  
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: var(--knob-size);
+  width: var(--knob-size);
+  left: var(--gap);
+  bottom: var(--gap);
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #E1B12C;
+}
+
+input:checked + .slider:before {
+  /* The magic math: Move the width of the container minus the knob and the gap */
+  transform: translateX(calc(var(--width) - var(--knob-size) - (var(--gap) * 2)));
+}
+
+.pevs-image-wrapper{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.pevs-image{
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #E1B12C;
+    box-shadow: 0 4px 15px rgba(225, 177, 44, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.pevs-image:hover {
+    transform: scale(1.8);
+    box-shadow: 0 6px 20px rgba(225, 177, 44, 0.5);
+}
+
+.topic-switcher {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* The Tab Bar */
+.topic-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #2d3436;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Scrollable on small screens */
+    padding-bottom: 5px;
+}
+
+.tab-btn {
+    background: #131e29;
+    color: #f5f6fa;
+    border: 1px solid #2d3436;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    background: #2d3436;
+}
+
+.tab-btn.active {
+    background: #E1B12C;
+    color: #131e29;
+    border-color: #E1B12C;
+}
+
+/* The Content Panels */
+.topic-panel {
+    display: none; /* Hidden by default */
+    background: #131e29;
+    padding: 30px;
+    border-radius: 0 0 8px 8px;
+    line-height: 1.6;
+    animation: fadeIn 0.4s ease;
+}
+
+.topic-panel.active {
+    display: block; /* Shown when active */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* The markdown files */
+
+/* Styling for Markdown Content */
+#dynamic-content-area h1, 
+#dynamic-content-area h2 {
+    color: #E1B12C; /* Gold headers */
+    margin-top: 20px;
+    border-bottom: 1px solid #2d3436;
+    padding-bottom: 10px;
+}
+
+#dynamic-content-area ul {
+    padding-left: 20px;
+}
+
+#dynamic-content-area li {
+    margin-bottom: 10px;
+}
+
+#dynamic-content-area strong {
+    color: #E1B12C; /* Highlighted dosages or keywords */
+}
+
+/* Style for Warnings/Notes in Markdown using > */
+#dynamic-content-area blockquote {
+    background: rgba(225, 177, 44, 0.1);
+    border-left: 5px solid #E1B12C;
+    margin: 20px 0;
+    padding: 15px;
+    font-style: italic;
+}
+
+/* Loading state animation */
+#dynamic-content-area {
+    transition: opacity 0.3s ease;
+}
+
+/* --- WEIGHT INPUT STYLING --- */
+.weight-input-container {
+    background: #131e29;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #2d3436;
+}
+
+.weight-input-container label {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.weight-input-container input {
+    background: #1a1e21;
+    color: #E1B12C;
+    border: 1px solid #2d3436;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100px;
+    outline: none;
+}
+
+.weight-input-container input:focus {
+    border-color: #E1B12C;
+}
+
+#age-unit {
+    background: #1a1e21;
+    color: #E1B12C;
+    border: 1px solid #2d3436;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 120px;
+    outline: none;
+    margin-left: 4px;
+}
+
+/* --- MARKDOWN CONTENT STYLING --- */
+#dynamic-content-area {
+    transition: opacity 0.3s ease;
+}
+
+#dynamic-content-area h1, 
+#dynamic-content-area h2, 
+#dynamic-content-area h3 {
+    color: #E1B12C;
+    margin-top: 25px;
+    border-bottom: 1px solid #2d3436;
+    padding-bottom: 8px;
+}
+
+#dynamic-content-area ul {
+    padding-left: 20px;
+}
+
+#dynamic-content-area li {
+    margin-bottom: 10px;
+}
+
+#dynamic-content-area strong {
+    color: #E1B12C;
+}
+
+#dynamic-content-area blockquote {
+    background: rgba(225, 177, 44, 0.1);
+    border-left: 5px solid #E1B12C;
+    margin: 20px 0;
+    padding: 15px;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Tables in Markdown */
+#dynamic-content-area table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+#dynamic-content-area th, 
+#dynamic-content-area td {
+    border: 1px solid #2d3436;
+    padding: 12px;
+    text-align: left;
+}
+
+#dynamic-content-area th {
+    background-color: #1a1e21;
+    color: #E1B12C;
+}
+
+/* Responsiv justering */
+/* Gjøre tabeller responsive */
+#dynamic-content-area table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap; /* Hindrer teksten i å kræsje sammen */
+    -webkit-overflow-scrolling: touch; /* Gir myk rulling på iPhone */
+}
+/* ==========================================
+   MOBIL-RESPONSIVITET (Skjermer under 768px)
+   ========================================== */
+@media screen and (max-width: 768px) {
+    
+    /* Reduserer padding på toppmenyen */
+    .top-bar {
+        padding: 15px 20px;
+    }
+
+    /* Stabler PEVS tekst og bilde oppå hverandre */
+    .pevs-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        margin: 10px;
+    }
+
+    /* Vekt- og alder-inputs stables loddrett */
+    .weight-input-container {
+        flex-direction: column;
+        align-items: flex-start; /* Får teksten til å starte til venstre */
+        gap: 10px;
+        padding: 15px;
+    }
+
+    /* Tvinger vekt-input til å ta hele bredden */
+    .weight-input-container input#patient-weight {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Viser alder-input og enhet (år/mnd) ved siden av hverandre og fyller bredden */
+    .age-group {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .age-group input#pasient-age {
+        flex: 1; /* Deler plassen likt */
+        width: 100%;
+    }
+
+    #age-unit {
+        flex: 1;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Gjør fanene (WETFLAG, etc.) lettere å trykke på */
+    .tab-btn {
+        flex: 1 1 40%; /* Gjør at knappene tar like mye plass og bryter til neste linje om nødvendig */
+        min-width: 120px; /* Sikrer at knappene ikke blir for små */
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+
+    /* Litt mindre marg og padding på selve innholdet */
+    .topic-switcher {
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+
+    .topic-panel {
+        padding: 15px;
+    }
+}
+
+.mobile-view ul {
+        list-style: none; /* Fjerner prikkene for et renere utseende */
+        padding-left: 0;
+    }
+
+    .mobile-view li {
+        background: #2d3436; /* Svak bakgrunnsfarge på hvert punkt */
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 6px;
+        border-left: 4px solid #E1B12C; /* Gullkant for tydelighet */
+    }
+
+    /* Gjør primærundersøkelse litt finere på mobil*/
+    /* Spesifikk styling for ABCDE på mobil */
+    .mobile-view h3 {
+        background: #2d3436; /* Mørk grå bakgrunn (samme som listene) */
+        color: #E1B12C;      /* Gull-farget tekst for god kontrast */
+        padding: 10px 15px;
+        border-radius: 4px;
+        border-left: 5px solid #E1B12C; /* Tydelig gull-markør på venstre side */
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+        display: block;
+    }
+
+    .mobile-view p, .mobile-view li {
+        color: #f5f6fa;
+        line-height: 1.5;
+    }
+
+    .mobile-view hr {
+        border: none;
+        border-bottom: 1px solid #2d3436;
+        margin: 15px 0;
+    }
+
+
+/* Skjul mobil-versjonen som standard (på PC/nettbrett) */
+.mobile-view {
+    display: none;
+}
+
+/* Vis tabellen som standard på PC */
+.desktop-view {
+    display: block;
+}
+
+/* Når skjermen er smalere enn 768px (typisk mobil) */
+@media screen and (max-width: 768px) {
+    .desktop-view {
+        display: none; /* Skjul tabellen */
+    }
+    .mobile-view {
+        display: block; /* Vis den moderne listen */
+    }
+}
